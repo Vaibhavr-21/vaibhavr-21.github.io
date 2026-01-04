@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -25,6 +26,16 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Show dist contents
+        run: |
+          echo ">>> pwd: $(pwd)"
+          echo ">>> ls -la (root)"
+          ls -la
+          echo ">>> ls -la dist"
+          ls -la dist || true
+          echo ">>> head -n 60 dist/index.html"
+          head -n 60 dist/index.html || true
 
       - name: Deploy to GitHub Pages (gh-pages branch)
         uses: JamesIves/github-pages-deploy-action@v4
