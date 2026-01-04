@@ -6,12 +6,10 @@ on:
       - main
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -28,20 +26,10 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Upload artifact for GitHub Pages
-        uses: actions/upload-pages-artifact@v1
+      - name: Deploy to GitHub Pages (gh-pages branch)
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          path: ./dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: https://$GITHUB_REPOSITORY_OWNER.github.io/${{ github.event.repository.name }}/
-    permissions:
-      pages: write
-      id-token: write
-    steps:
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v1
+          branch: gh-pages # The branch the action should deploy to.
+          folder: dist
+          clean: true
+          token: ${{ secrets.GITHUB_TOKEN }}
