@@ -4,39 +4,39 @@ import { personalInfo } from '../data';
 
 export const Hero: React.FC = () => {
   return (
-    <div className="bg-primary text-white pt-20 pb-24 px-4 md:px-8">
+    <div className="bg-primary text-white pt-20 pb-24 px-4 md:px-8 print:bg-white print:text-slate-900 print:pt-0 print:pb-8 print:px-0">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
         <div className="md:w-2/3 space-y-6">
-          <div className="inline-block bg-accent/20 px-3 py-1 rounded-full text-accent text-sm font-semibold mb-2 border border-accent/30">
+          <div className="inline-block bg-accent/20 px-3 py-1 rounded-full text-accent text-sm font-semibold mb-2 border border-accent/30 print:border-slate-300 print:text-slate-700 print:bg-slate-100">
             SAP Certified Associate
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold leading-tight">
+          <h1 className="text-4xl md:text-6xl font-bold leading-tight print:text-slate-900">
             Hello, I'm <br/>
-            <span className="text-accent">{personalInfo.name}</span>
+            <span className="text-accent print:text-primary">{personalInfo.name}</span>
           </h1>
-          <h2 className="text-2xl md:text-3xl text-slate-300 font-light">
+          <h2 className="text-2xl md:text-3xl text-slate-300 font-light print:text-slate-700">
             {personalInfo.title}
           </h2>
-          <p className="text-slate-300 max-w-xl text-lg leading-relaxed">
+          <p className="text-slate-300 max-w-xl text-lg leading-relaxed print:text-slate-600">
             {personalInfo.summary}
           </p>
           
-          <div className="flex flex-wrap gap-4 mt-8 text-sm md:text-base">
-            <a href={`mailto:${personalInfo.email}`} className="flex items-center gap-2 hover:text-accent transition-colors">
-              <Mail size={18} className="text-accent" />
+          <div className="flex flex-wrap gap-4 mt-8 text-sm md:text-base print:text-slate-800">
+            <a href={`mailto:${personalInfo.email}`} className="flex items-center gap-2 hover:text-accent transition-colors print:text-slate-900">
+              <Mail size={18} className="text-accent print:text-primary" />
               {personalInfo.email}
             </a>
-            <a href={`tel:${personalInfo.phone}`} className="flex items-center gap-2 hover:text-accent transition-colors">
-              <Phone size={18} className="text-accent" />
+            <a href={`tel:${personalInfo.phone}`} className="flex items-center gap-2 hover:text-accent transition-colors print:text-slate-900">
+              <Phone size={18} className="text-accent print:text-primary" />
               {personalInfo.phone}
             </a>
             <span className="flex items-center gap-2">
-              <MapPin size={18} className="text-accent" />
+              <MapPin size={18} className="text-accent print:text-primary" />
               {personalInfo.location}
             </span>
           </div>
 
-          <div className="pt-6">
+          <div className="pt-6 print:hidden">
             <button 
               onClick={() => window.print()}
               className="bg-accent hover:bg-blue-600 text-white px-6 py-3 rounded-md font-medium transition-colors flex items-center gap-2"
@@ -48,7 +48,7 @@ export const Hero: React.FC = () => {
         </div>
         
         {/* Abstract graphical element since we don't have a photo */}
-        <div className="hidden md:block md:w-1/3 relative mt-12 md:mt-0">
+        <div className="hidden md:block md:w-1/3 relative mt-12 md:mt-0 print:hidden">
           <div className="w-64 h-64 bg-slate-700/50 rounded-full flex items-center justify-center border-4 border-slate-600/50 relative overflow-hidden mx-auto">
             <div className="absolute inset-0 bg-gradient-to-tr from-primary to-accent opacity-80"></div>
             <span className="text-6xl font-bold text-white/20 z-10">VR</span>

@@ -12,7 +12,7 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900">
       <Header />
-      <main className="pt-16">
+      <main className="pt-16 print:pt-0">
         <Hero />
         <About />
         <Skills />

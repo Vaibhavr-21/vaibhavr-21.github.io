@@ -8,7 +8,7 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer id="contact" className="bg-slate-900 text-slate-300 py-12 px-4">
+    <footer id="contact" className="bg-slate-900 text-slate-300 py-12 px-4 print:hidden">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
         
         <div className="text-center md:text-left">
