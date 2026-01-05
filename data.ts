@@ -1,5 +1,5 @@
 import { Job, EducationItem, Certification, PersonalInfo, SkillCategory } from './types';
-import profileImage from './public/vaibhav.jpg';
+import profileImage from './public/Vaibhav.jpg';
 
 export const personalInfo: PersonalInfo = {
   name: "Vaibhav Reddy",
