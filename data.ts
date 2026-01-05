@@ -1,4 +1,5 @@
 import { Job, EducationItem, Certification, PersonalInfo, SkillCategory } from './types';
+import profileImage from './public/vaibhav.jpg';
 
 export const personalInfo: PersonalInfo = {
   name: "Vaibhav Reddy",
@@ -9,7 +10,7 @@ export const personalInfo: PersonalInfo = {
   summary: "Dedicated SAP ABAP developer with over 12 years of experience. Passionate about optimizing business processes through robust software solutions. Seeking to leverage extensive programming expertise to contribute to dynamic projects, enhance system efficiency, and drive innovation within the SAP environment.",
   languages: ["English", "Hindi", "German (A1)"],
   // Replace this URL with your own photo URL or a local path like "/profile.jpg"
-  photoUrl: "/vaibhav.jpg"
+  photoUrl: profileImage
 };
 
 // Re-organized into logical groups for better readability
