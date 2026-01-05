@@ -9,7 +9,7 @@ export const personalInfo: PersonalInfo = {
   summary: "Dedicated SAP ABAP developer with over 12 years of experience. Passionate about optimizing business processes through robust software solutions. Seeking to leverage extensive programming expertise to contribute to dynamic projects, enhance system efficiency, and drive innovation within the SAP environment.",
   languages: ["English", "Hindi", "German (A1)"],
   // Replace this URL with your own photo URL or a local path like "/profile.jpg"
-  photoUrl: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+  photoUrl: "/vaibhav.jpg"
 };
 
 // Re-organized into logical groups for better readability
