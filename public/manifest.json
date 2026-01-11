@@ -1,0 +1,26 @@
+{
+  "name": "Vaibhav Reddy Portfolio",
+  "short_name": "Vaibhav Reddy",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#003366",
+  "description": "Professional portfolio of Vaibhav Reddy, Lead SAP ABAP Consultant.",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "Vaibhav.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "Vaibhav.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}
