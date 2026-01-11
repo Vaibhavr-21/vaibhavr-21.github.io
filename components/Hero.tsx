@@ -1,18 +1,35 @@
 import React from 'react';
 import { Mail, Phone, MapPin, Download } from 'lucide-react';
 import { personalInfo } from '../data';
+import { motion } from 'framer-motion';
+import { Typewriter } from 'react-simple-typewriter';
 
 export const Hero: React.FC = () => {
   return (
-    <div className="bg-primary text-white pt-20 pb-24 px-4 md:px-8 print:bg-white print:text-slate-900 print:pt-0 print:pb-8 print:px-0">
+    <div className="bg-primary dark:bg-slate-900 text-white pt-20 pb-24 px-4 md:px-8 transition-colors duration-300 print:bg-white print:text-slate-900 print:pt-0 print:pb-8 print:px-0">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
-        <div className="md:w-2/3 space-y-6">
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          className="md:w-2/3 space-y-6"
+        >
           <div className="inline-block bg-accent/20 px-3 py-1 rounded-full text-accent text-sm font-semibold mb-2 border border-accent/30 print:border-slate-300 print:text-slate-700 print:bg-slate-100">
             SAP Certified Associate
           </div>
           <h1 className="text-4xl md:text-6xl font-bold leading-tight print:text-slate-900">
             Hello, I'm <br/>
-            <span className="text-accent print:text-primary">{personalInfo.name}</span>
+            <span className="text-accent print:text-primary">
+              <Typewriter
+                words={[personalInfo.name]}
+                loop={1}
+                cursor
+                cursorStyle='_'
+                typeSpeed={70}
+                deleteSpeed={50}
+                delaySpeed={1000}
+              />
+            </span>
           </h1>
           <h2 className="text-2xl md:text-3xl text-slate-300 font-light print:text-slate-700">
             {personalInfo.title}
@@ -36,7 +53,12 @@ export const Hero: React.FC = () => {
             </span>
           </div>
 
-          <div className="pt-6 print:hidden">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+            className="pt-6 print:hidden"
+          >
             <button 
               onClick={() => window.print()}
               className="bg-accent hover:bg-blue-600 text-white px-6 py-3 rounded-md font-medium transition-colors flex items-center gap-2"
@@ -44,11 +66,16 @@ export const Hero: React.FC = () => {
               <Download size={20} />
               Save as PDF
             </button>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
         
         {/* Photo or Abstract Fallback */}
-        <div className="hidden md:block md:w-1/3 relative mt-12 md:mt-0 print:hidden">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+          className="hidden md:block md:w-1/3 relative mt-12 md:mt-0 print:hidden"
+        >
           {/* Decorative Blobs */}
           <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-accent/20 rounded-full blur-xl"></div>
           <div className="absolute -top-4 -left-4 w-32 h-32 bg-primary/40 rounded-full blur-xl"></div>
@@ -69,7 +96,7 @@ export const Hero: React.FC = () => {
               </div>
             )}
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
