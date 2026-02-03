@@ -59,7 +59,7 @@ export const experienceData: Job[] = [
     projects: [
       {
         name: "Apple Inc.",
-        role: "Principal Consultant",
+        role: "Lead Consultant",
         duration: "September 2025 – Present",
         tags: ["SAP SD", "SAP ECC", "Radar", "Reporting"],
         responsibilities: [
