@@ -36,7 +36,7 @@ export const Experience: React.FC = () => {
   }, 0);
 
   // Default to 30 Lakhs if no input provided yet
-  const displayLoss = (totalLoss === 0 && Object.keys(salaryInputs).length === 0) ? 3500000 : totalLoss;
+  const displayLoss = (computedLoss === 0 && Object.keys(salaryInputs).length === 0) ? 3500000 : computedLoss;
 
   return (
     <Section id="experience" title="Professional Experience">
