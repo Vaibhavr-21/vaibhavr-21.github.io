@@ -54,7 +54,7 @@ export const experienceData: Job[] = [
   {
     id: "infosys-apple",
     company: "Infosys",
-    designation: "Principal Consultant",
+    designation: "Lead Consultant",
     duration: "September 2025 – Present",
     projects: [
       {
@@ -161,7 +161,7 @@ export const experienceData: Job[] = [
     id: "capgemini",
     company: "Capgemini",
     designation: "Senior SAP Consultant",
-    duration: "Jan 2019 – May 2020",
+    duration: "Jan 2019 – May 2019",
     projects: [
       {
         name: "Oil and Gas Company (Equinor)",
