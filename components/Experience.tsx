@@ -22,8 +22,8 @@ export const Experience: React.FC = () => {
     return gap * salary;
   };
 
-  // Calculate Cumulative Total Loss
-  const totalLoss = experienceData.reduce((total, job, index) => {
+  // Calculate computed total loss (based on user-provided salary inputs)
+  const computedLoss = experienceData.reduce((total, job, index) => {
       let gapMonths = 0;
       if (index > 0) {
           const nextJob = experienceData[index - 1];
@@ -34,6 +34,16 @@ export const Experience: React.FC = () => {
       const loss = calculateLoss(gapMonths, salaryStr);
       return total + loss;
   }, 0);
+
+  // Detect if user has provided any salary inputs
+  const userProvidedSalary = Object.values(salaryInputs).some(v => v && v.trim() !== '');
+
+  // Default value to display when no user inputs exist
+  const defaultLoss = 3500000;
+
+  const displayLoss = userProvidedSalary ? computedLoss : defaultLoss;
+  const formattedDisplayLoss = displayLoss.toLocaleString(undefined, { style: 'currency', currency: 'INR', maximumFractionDigits: 0 });
+  const displayIsDefault = !userProvidedSalary;
 
   return (
     <Section id="experience" title="Professional Experience">
@@ -47,8 +57,8 @@ export const Experience: React.FC = () => {
               </div>
               <div>
                 <div className="text-xs font-semibold text-red-500 uppercase tracking-wide">Total Cumulative Loss</div>
-                <div className="text-2xl font-bold text-red-800">
-                  {totalLoss > 0 ? totalLoss.toLocaleString(undefined, { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }) : '₹0'}
+                <div className={`text-2xl font-bold ${displayIsDefault ? 'text-slate-500' : 'text-red-800'}`}>
+                  {formattedDisplayLoss}
                 </div>
                 <div className="text-[10px] text-red-400 italic">Monetary & Psychological Impact</div>
               </div>
@@ -62,12 +72,12 @@ export const Experience: React.FC = () => {
             checked={showLeavingReasons}
             onChange={() => setShowLeavingReasons(!showLeavingReasons)}
           />
-          <div className="relative w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+          <div className="relative w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after[...]
           <span className="ms-3 text-sm font-medium text-slate-900">Career Gap & Impact Analysis</span>
         </label>
       </div>
 
-      <div className="space-y-12 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
+      <div className="space-y-12 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b[...]
         {experienceData.map((job, index) => {
           // Calculate gap to the NEXT job (chronologically previous in the list)
           // List is reverse chronological: [Newest, ..., Oldest]
@@ -92,7 +102,7 @@ export const Experience: React.FC = () => {
           <div key={job.id} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
             
             {/* Icon */}
-            <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-200 group-hover:bg-accent group-hover:text-white text-slate-500 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-colors">
+            <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-200 group-hover:bg-accent group-hover:text-white text-slate-500 shadow shrink-0 md:orde[...]
               <Briefcase size={18} />
             </div>
             
