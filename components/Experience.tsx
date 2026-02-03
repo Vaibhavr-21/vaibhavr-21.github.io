@@ -1,10 +1,26 @@
 import React, { useState } from 'react';
 import { Section } from './Section';
 import { experienceData } from '../data';
-import { Briefcase, Calendar, Hash } from 'lucide-react';
+import { Briefcase, Calendar, Hash, Calculator } from 'lucide-react';
+import { getGapInMonths } from '../utils/dateHelpers';
 
 export const Experience: React.FC = () => {
   const [showLeavingReasons, setShowLeavingReasons] = useState(false);
+  const [salaryInputs, setSalaryInputs] = useState<{ [key: string]: string }>({});
+
+  const handleSalaryChange = (id: string, value: string) => {
+    setSalaryInputs(prev => ({
+      ...prev,
+      [id]: value
+    }));
+  };
+
+  const calculateLoss = (gap: number, salaryStr: string) => {
+    if (!gap || !salaryStr) return 0;
+    const salary = parseFloat(salaryStr.replace(/,/g, ''));
+    if (isNaN(salary)) return 0;
+    return gap * salary;
+  };
 
   return (
     <Section id="experience" title="Professional Experience">
@@ -22,7 +38,27 @@ export const Experience: React.FC = () => {
       </div>
 
       <div className="space-y-12 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
-        {experienceData.map((job, index) => (
+        {experienceData.map((job, index) => {
+          // Calculate gap to the NEXT job (chronologically previous in the list)
+          // List is reverse chronological: [Newest, ..., Oldest]
+          // Gap is between current job's END and next job's START?
+          // No, wait.
+          // Job[0] (Current) -> Gap -> Job[1] (Previous).
+          // Gap is between Job[1].End and Job[0].Start.
+          // So the gap associated with "Leaving Job[1]" is the one BEFORE Job[0].
+
+          // Let's render the gap logic inside the job card of the *previous* job?
+          // If I am at Job[1], I left it, and then had a gap before Job[0].
+          // So Job[1] is the "exited" job.
+          // We calculate gap between Job[1].duration (End) and Job[0].duration (Start).
+
+          let gapMonths = 0;
+          if (index > 0) {
+             const nextJob = experienceData[index - 1]; // Chronologically newer
+             gapMonths = getGapInMonths(job.duration, nextJob.duration);
+          }
+
+          return (
           <div key={job.id} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
             
             {/* Icon */}
@@ -42,6 +78,46 @@ export const Experience: React.FC = () => {
                   {job.duration}
                 </div>
               </div>
+
+              {/* Financial Loss Calculator (Only if gap exists and toggle is ON) */}
+              {showLeavingReasons && gapMonths > 0 && (
+                <div className="mb-6 p-4 bg-orange-50 border border-orange-100 rounded-lg animate-fadeIn">
+                  <div className="flex items-center gap-2 text-orange-800 font-semibold mb-2">
+                    <Calculator size={16} />
+                    <span>Unemployment Gap: {gapMonths} months</span>
+                  </div>
+
+                  <div className="space-y-3">
+                    <div>
+                      <label htmlFor={`salary-${job.id}`} className="block text-xs font-medium text-orange-700 mb-1">
+                        Last Monthly Salary (at exit)
+                      </label>
+                      <div className="relative">
+                         <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-xs font-bold">
+                           $ / ₹
+                         </span>
+                         <input
+                          type="number"
+                          id={`salary-${job.id}`}
+                          placeholder="e.g. 5000"
+                          className="w-full pl-10 pr-3 py-1.5 text-sm border border-orange-200 rounded focus:ring-2 focus:ring-orange-300 focus:outline-none"
+                          value={salaryInputs[job.id] || ''}
+                          onChange={(e) => handleSalaryChange(job.id, e.target.value)}
+                        />
+                      </div>
+                    </div>
+
+                    {salaryInputs[job.id] && (
+                       <div className="pt-2 border-t border-orange-200">
+                         <div className="text-xs text-orange-600">Notional Financial Loss:</div>
+                         <div className="text-lg font-bold text-orange-900">
+                           {parseFloat(salaryInputs[job.id]) ? (parseFloat(salaryInputs[job.id]) * gapMonths).toLocaleString() : 0}
+                         </div>
+                       </div>
+                    )}
+                  </div>
+                </div>
+              )}
 
               {/* Projects Loop */}
               {job.projects.length > 0 && (
@@ -95,7 +171,8 @@ export const Experience: React.FC = () => {
               )}
             </div>
           </div>
-        ))}
+          );
+        })}
       </div>
     </Section>
   );
