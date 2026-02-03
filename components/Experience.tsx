@@ -1,13 +1,84 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Section } from './Section';
 import { experienceData } from '../data';
-import { Briefcase, Calendar, Hash } from 'lucide-react';
+import { Briefcase, Calendar, Hash, Calculator } from 'lucide-react';
+import { getGapInMonths } from '../utils/dateHelpers';
 
 export const Experience: React.FC = () => {
+  const [showLeavingReasons, setShowLeavingReasons] = useState(false);
+  const [salaryInputs, setSalaryInputs] = useState<{ [key: string]: string }>({});
+
+  const handleSalaryChange = (id: string, value: string) => {
+    setSalaryInputs(prev => ({
+      ...prev,
+      [id]: value
+    }));
+  };
+
+  const calculateLoss = (gap: number, salaryStr: string) => {
+    if (!gap || !salaryStr) return 0;
+    const salary = parseFloat(salaryStr.replace(/,/g, ''));
+    if (isNaN(salary)) return 0;
+    return gap * salary;
+  };
+
+  // Calculate Cumulative Total Loss
+  const totalLoss = experienceData.reduce((total, job, index) => {
+      let gapMonths = 0;
+      if (index > 0) {
+          const nextJob = experienceData[index - 1];
+          gapMonths = getGapInMonths(job.duration, nextJob.duration);
+      }
+
+      const salaryStr = salaryInputs[job.id];
+      const loss = calculateLoss(gapMonths, salaryStr);
+      return total + loss;
+  }, 0);
+
   return (
     <Section id="experience" title="Professional Experience">
+      <div className="flex flex-col md:flex-row justify-between items-end md:items-center mb-8 print:hidden">
+
+        {/* Cumulative Loss Display */}
+        <div className={`transition-all duration-500 ease-in-out ${showLeavingReasons ? 'opacity-100 max-h-24' : 'opacity-0 max-h-0 overflow-hidden'}`}>
+           <div className="bg-red-50 border border-red-200 rounded-lg p-3 shadow-sm flex items-center gap-3">
+              <div className="p-2 bg-red-100 rounded-full text-red-600">
+                <Calculator size={20} />
+              </div>
+              <div>
+                <div className="text-xs font-semibold text-red-500 uppercase tracking-wide">Total Cumulative Loss</div>
+                <div className="text-2xl font-bold text-red-800">
+                  {totalLoss > 0 ? totalLoss.toLocaleString(undefined, { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }) : '₹0'}
+                </div>
+                <div className="text-[10px] text-red-400 italic">Monetary & Psychological Impact</div>
+              </div>
+           </div>
+        </div>
+
+        <label className="inline-flex items-center cursor-pointer mt-4 md:mt-0">
+          <input
+            type="checkbox"
+            className="sr-only peer"
+            checked={showLeavingReasons}
+            onChange={() => setShowLeavingReasons(!showLeavingReasons)}
+          />
+          <div className="relative w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+          <span className="ms-3 text-sm font-medium text-slate-900">Career Gap & Impact Analysis</span>
+        </label>
+      </div>
+
       <div className="space-y-12 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
-        {experienceData.map((job, index) => (
+        {experienceData.map((job, index) => {
+          // Calculate gap to the NEXT job (chronologically previous in the list)
+          // List is reverse chronological: [Newest, ..., Oldest]
+
+          let gapMonths = 0;
+          if (index > 0) {
+             const nextJob = experienceData[index - 1]; // Chronologically newer
+             gapMonths = getGapInMonths(job.duration, nextJob.duration);
+          }
+
+          return (
           <div key={job.id} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
             
             {/* Icon */}
@@ -27,6 +98,46 @@ export const Experience: React.FC = () => {
                   {job.duration}
                 </div>
               </div>
+
+              {/* Financial Loss Calculator (Only if gap exists and toggle is ON) */}
+              {showLeavingReasons && gapMonths > 0 && (
+                <div className="mb-6 p-4 bg-orange-50 border border-orange-100 rounded-lg animate-fadeIn">
+                  <div className="flex items-center gap-2 text-orange-800 font-semibold mb-2">
+                    <Calculator size={16} />
+                    <span>Unemployment Gap: {gapMonths} months</span>
+                  </div>
+
+                  <div className="space-y-3">
+                    <div>
+                      <label htmlFor={`salary-${job.id}`} className="block text-xs font-medium text-orange-700 mb-1">
+                        Last Monthly Salary (at exit)
+                      </label>
+                      <div className="relative">
+                         <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-xs font-bold">
+                           $ / ₹
+                         </span>
+                         <input
+                          type="number"
+                          id={`salary-${job.id}`}
+                          placeholder="e.g. 5000"
+                          className="w-full pl-10 pr-3 py-1.5 text-sm border border-orange-200 rounded focus:ring-2 focus:ring-orange-300 focus:outline-none"
+                          value={salaryInputs[job.id] || ''}
+                          onChange={(e) => handleSalaryChange(job.id, e.target.value)}
+                        />
+                      </div>
+                    </div>
+
+                    {salaryInputs[job.id] && (
+                       <div className="pt-2 border-t border-orange-200">
+                         <div className="text-xs text-orange-600">Notional Financial Loss:</div>
+                         <div className="text-lg font-bold text-orange-900">
+                           {parseFloat(salaryInputs[job.id]) ? (parseFloat(salaryInputs[job.id]) * gapMonths).toLocaleString() : 0}
+                         </div>
+                       </div>
+                    )}
+                  </div>
+                </div>
+              )}
 
               {/* Projects Loop */}
               {job.projects.length > 0 && (
@@ -57,6 +168,14 @@ export const Experience: React.FC = () => {
                           </div>
                         )}
                       </div>
+
+                      {/* Leaving Reason - Conditional Display */}
+                      {showLeavingReasons && project.leavingReason && (
+                         <div className="mb-3 p-3 bg-red-50 border border-red-100 rounded text-sm text-red-800">
+                           <span className="font-bold block mb-1 text-red-900">Reason for leaving:</span>
+                           {project.leavingReason}
+                         </div>
+                      )}
                       
                       <ul className="space-y-2 mt-3">
                         {project.responsibilities.map((resp, rIndex) => (
@@ -72,7 +191,8 @@ export const Experience: React.FC = () => {
               )}
             </div>
           </div>
-        ))}
+          );
+        })}
       </div>
     </Section>
   );
