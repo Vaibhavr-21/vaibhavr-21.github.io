@@ -75,7 +75,7 @@ export const experienceData: Job[] = [
         name: "WBD",
         role: "Lead Developer",
         duration: "March 2024 – September 2024",
-        leavingReason: "Forcing high-performers to fix legacy technical debt indefinitely while giving "exciting" new AI or Greenfield projects to favorites.",
+        leavingReason: "Forcing high-performers to fix legacy technical debt indefinitely while giving \"exciting\" new AI or Greenfield projects to favorites.",
         tags: ["Fiori", "UI5", "MDG", "Performance Tuning"],
         responsibilities: [
           "Led the enhancement of a custom analytical Fiori app by adding new fields to selection criteria and output list.",
