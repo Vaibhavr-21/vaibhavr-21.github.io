@@ -4,7 +4,6 @@ import { experienceData } from '../data';
 import { Briefcase, Calendar, Hash, Calculator } from 'lucide-react';
 import { getGapInMonths } from '../utils/dateHelpers';
 
-
 export const Experience: React.FC = () => {
   const [showLeavingReasons, setShowLeavingReasons] = useState(false);
   const [salaryInputs, setSalaryInputs] = useState<{ [key: string]: string }>({});
@@ -36,15 +35,8 @@ export const Experience: React.FC = () => {
       return total + loss;
   }, 0);
 
-  // Detect if user has provided any salary inputs
-  const userProvidedSalary = Object.values(salaryInputs).some(v => v && v.trim() !== '');
-
-  // Default value to display when no user inputs exist
-  const defaultLoss = 3500000;
-
-  const displayLoss = userProvidedSalary ? computedLoss : defaultLoss;
-  const formattedDisplayLoss = displayLoss.toLocaleString(undefined, { style: 'currency', currency: 'INR', maximumFractionDigits: 0 });
-  const displayIsDefault = !userProvidedSalary;
+  // Default to 30 Lakhs if no input provided yet
+  const displayLoss = (totalLoss === 0 && Object.keys(salaryInputs).length === 0) ? 3500000 : totalLoss;
 
   return (
     <Section id="experience" title="Professional Experience">
@@ -58,8 +50,8 @@ export const Experience: React.FC = () => {
               </div>
               <div>
                 <div className="text-xs font-semibold text-red-500 uppercase tracking-wide">Total Cumulative Loss</div>
-                <div className={`text-2xl font-bold ${displayIsDefault ? 'text-slate-500' : 'text-red-800'}`}>
-                  {formattedDisplayLoss}
+                <div className="text-2xl font-bold text-red-800">
+                  {displayLoss.toLocaleString(undefined, { style: 'currency', currency: 'INR', maximumFractionDigits: 0 })}
                 </div>
                 <div className="text-[10px] text-red-400 italic">Monetary & Psychological Impact</div>
               </div>
@@ -73,25 +65,15 @@ export const Experience: React.FC = () => {
             checked={showLeavingReasons}
             onChange={() => setShowLeavingReasons(!showLeavingReasons)}
           />
-          <div className="relative w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after[...]
+          <div className="relative w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
           <span className="ms-3 text-sm font-medium text-slate-900">Career Gap & Impact Analysis</span>
         </label>
       </div>
 
-      <div className="space-y-12 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b[...]
+      <div className="space-y-12 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
         {experienceData.map((job, index) => {
           // Calculate gap to the NEXT job (chronologically previous in the list)
           // List is reverse chronological: [Newest, ..., Oldest]
-          // Gap is between current job's END and next job's START?
-          // No, wait.
-          // Job[0] (Current) -> Gap -> Job[1] (Previous).
-          // Gap is between Job[1].End and Job[0].Start.
-          // So the gap associated with "Leaving Job[1]" is the one BEFORE Job[0].
-
-          // Let's render the gap logic inside the job card of the *previous* job?
-          // If I am at Job[1], I left it, and then had a gap before Job[0].
-          // So Job[1] is the "exited" job.
-          // We calculate gap between Job[1].duration (End) and Job[0].duration (Start).
 
           let gapMonths = 0;
           if (index > 0) {
