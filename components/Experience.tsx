@@ -1,11 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Section } from './Section';
 import { experienceData } from '../data';
 import { Briefcase, Calendar, Hash } from 'lucide-react';
 
 export const Experience: React.FC = () => {
+  const [showLeavingReasons, setShowLeavingReasons] = useState(false);
+
   return (
     <Section id="experience" title="Professional Experience">
+      <div className="flex justify-end mb-6 print:hidden">
+        <label className="inline-flex items-center cursor-pointer">
+          <input
+            type="checkbox"
+            className="sr-only peer"
+            checked={showLeavingReasons}
+            onChange={() => setShowLeavingReasons(!showLeavingReasons)}
+          />
+          <div className="relative w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+          <span className="ms-3 text-sm font-medium text-slate-900">Reason for Job Loss</span>
+        </label>
+      </div>
+
       <div className="space-y-12 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
         {experienceData.map((job, index) => (
           <div key={job.id} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
@@ -57,6 +72,14 @@ export const Experience: React.FC = () => {
                           </div>
                         )}
                       </div>
+
+                      {/* Leaving Reason - Conditional Display */}
+                      {showLeavingReasons && project.leavingReason && (
+                         <div className="mb-3 p-3 bg-red-50 border border-red-100 rounded text-sm text-red-800">
+                           <span className="font-bold block mb-1 text-red-900">Reason for leaving:</span>
+                           {project.leavingReason}
+                         </div>
+                      )}
                       
                       <ul className="space-y-2 mt-3">
                         {project.responsibilities.map((resp, rIndex) => (
