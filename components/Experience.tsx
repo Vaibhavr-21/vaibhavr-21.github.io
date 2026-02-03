@@ -4,6 +4,7 @@ import { experienceData } from '../data';
 import { Briefcase, Calendar, Hash, Calculator } from 'lucide-react';
 import { getGapInMonths } from '../utils/dateHelpers';
 
+
 export const Experience: React.FC = () => {
   const [showLeavingReasons, setShowLeavingReasons] = useState(false);
   const [salaryInputs, setSalaryInputs] = useState<{ [key: string]: string }>({});
