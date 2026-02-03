@@ -52,10 +52,30 @@ export const skillCategories: SkillCategory[] = [
 
 export const experienceData: Job[] = [
   {
-    id: "high-noon",
+    id: "infosys-apple",
+    company: "Infosys",
+    designation: "Principal Consultant",
+    duration: "September 2025 – Present",
+    projects: [
+      {
+        name: "Apple Inc.",
+        role: "Principal Consultant",
+        duration: "September 2025 – Present",
+        tags: ["SAP SD", "SAP ECC", "Radar", "Reporting"],
+        responsibilities: [
+          "Working on Radar tickets primarily involving changes to custom reports in the SD module within the SAP ECC system.",
+          "Analyzing and resolving complex incidents related to sales order processing and billing.",
+          "Optimizing legacy ABAP code for better performance and maintainability.",
+          "Collaborating with functional consultants to map business requirements to technical solutions."
+        ]
+      }
+    ]
+  },
+  {
+    id: "high-noon-solventum",
     company: "High Noon Consulting (Deloitte)",
     designation: "Lead ABAP Consultant",
-    duration: "March 2024 – Present",
+    duration: "February 2025 – May 2025",
     projects: [
       {
         name: "Solventum",
@@ -70,7 +90,15 @@ export const experienceData: Job[] = [
           "Added shipping group text from custom tables to FO notes as a text node.",
           "Restricted modifications to Quality Certificates in SAP QM (QC01/QC02) if user status 'ZREL' is set to safeguard data integrity."
         ]
-      },
+      }
+    ]
+  },
+  {
+    id: "high-noon-wbd",
+    company: "High Noon Consulting (Deloitte)",
+    designation: "Lead ABAP Consultant",
+    duration: "March 2024 – September 2024",
+    projects: [
       {
         name: "WBD",
         role: "Lead Developer",

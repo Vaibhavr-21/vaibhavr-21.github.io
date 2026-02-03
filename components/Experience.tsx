@@ -22,10 +22,40 @@ export const Experience: React.FC = () => {
     return gap * salary;
   };
 
+  // Calculate Cumulative Total Loss
+  const totalLoss = experienceData.reduce((total, job, index) => {
+      let gapMonths = 0;
+      if (index > 0) {
+          const nextJob = experienceData[index - 1];
+          gapMonths = getGapInMonths(job.duration, nextJob.duration);
+      }
+
+      const salaryStr = salaryInputs[job.id];
+      const loss = calculateLoss(gapMonths, salaryStr);
+      return total + loss;
+  }, 0);
+
   return (
     <Section id="experience" title="Professional Experience">
-      <div className="flex justify-end mb-6 print:hidden">
-        <label className="inline-flex items-center cursor-pointer">
+      <div className="flex flex-col md:flex-row justify-between items-end md:items-center mb-8 print:hidden">
+
+        {/* Cumulative Loss Display */}
+        <div className={`transition-all duration-500 ease-in-out ${showLeavingReasons ? 'opacity-100 max-h-24' : 'opacity-0 max-h-0 overflow-hidden'}`}>
+           <div className="bg-red-50 border border-red-200 rounded-lg p-3 shadow-sm flex items-center gap-3">
+              <div className="p-2 bg-red-100 rounded-full text-red-600">
+                <Calculator size={20} />
+              </div>
+              <div>
+                <div className="text-xs font-semibold text-red-500 uppercase tracking-wide">Total Cumulative Loss</div>
+                <div className="text-2xl font-bold text-red-800">
+                  {totalLoss > 0 ? totalLoss.toLocaleString(undefined, { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }) : '₹0'}
+                </div>
+                <div className="text-[10px] text-red-400 italic">Monetary & Psychological Impact</div>
+              </div>
+           </div>
+        </div>
+
+        <label className="inline-flex items-center cursor-pointer mt-4 md:mt-0">
           <input
             type="checkbox"
             className="sr-only peer"
@@ -33,7 +63,7 @@ export const Experience: React.FC = () => {
             onChange={() => setShowLeavingReasons(!showLeavingReasons)}
           />
           <div className="relative w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-          <span className="ms-3 text-sm font-medium text-slate-900">Reason for Job Loss</span>
+          <span className="ms-3 text-sm font-medium text-slate-900">Career Gap & Impact Analysis</span>
         </label>
       </div>
 
