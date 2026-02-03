@@ -71,6 +71,16 @@ export const Experience: React.FC = () => {
         {experienceData.map((job, index) => {
           // Calculate gap to the NEXT job (chronologically previous in the list)
           // List is reverse chronological: [Newest, ..., Oldest]
+          // Gap is between current job's END and next job's START?
+          // No, wait.
+          // Job[0] (Current) -> Gap -> Job[1] (Previous).
+          // Gap is between Job[1].End and Job[0].Start.
+          // So the gap associated with "Leaving Job[1]" is the one BEFORE Job[0].
+
+          // Let's render the gap logic inside the job card of the *previous* job?
+          // If I am at Job[1], I left it, and then had a gap before Job[0].
+          // So Job[1] is the "exited" job.
+          // We calculate gap between Job[1].duration (End) and Job[0].duration (Start).
 
           let gapMonths = 0;
           if (index > 0) {
