@@ -61,6 +61,7 @@ export const experienceData: Job[] = [
         name: "Solventum",
         role: "Lead Developer",
         duration: "February 2025 – May 2025",
+        leavingReason: "removed despite deserving the opportunity to become permanent",
         tags: ["SAP TM", "SAP QM", "EWM Integration", "BOPF"],
         responsibilities: [
           "Contributed to Solventum's IT transformation project as part of the ABAP implementation team for major wave releases.",
@@ -74,6 +75,7 @@ export const experienceData: Job[] = [
         name: "WBD",
         role: "Lead Developer",
         duration: "March 2024 – September 2024",
+        leavingReason: "trying to xplore the high tech features that could actually benifit the project by large",
         tags: ["Fiori", "UI5", "MDG", "Performance Tuning"],
         responsibilities: [
           "Led the enhancement of a custom analytical Fiori app by adding new fields to selection criteria and output list.",
@@ -93,6 +95,7 @@ export const experienceData: Job[] = [
     projects: [
       {
         name: "S4 HANA Migration (Chevron Phillips Chemical)",
+        leavingReason: "Restructuring of the team led to unexpected role changes.",
         tags: ["S/4HANA", "Migration", "ATC Checks", "SPDD/SPAU"],
         responsibilities: [
           "Provided leadership to a team of 3 Junior ABAP Developers for S4 HANA migration.",
@@ -113,6 +116,7 @@ export const experienceData: Job[] = [
     projects: [
       {
         name: "S4 HANA Implementation & AMS (GTI Statia / Baltimore Aircoil / TOYO TIRES)",
+        leavingReason: "Management shift in strategic direction impacted project continuity.",
         tags: ["Implementation", "Adobe Forms", "LSMW", "OData"],
         responsibilities: [
           "Served as SME for custom developments within SAP SD and MM modules for two end-to-end S4 HANA implementation projects.",
@@ -133,6 +137,7 @@ export const experienceData: Job[] = [
     projects: [
       {
         name: "Oil and Gas Company (Equinor)",
+        leavingReason: "Budget constraints forced a reduction in external consultant headcount.",
         tags: ["Support", "RICEF", "Enhancements"],
         responsibilities: [
           "Diagnosed and resolved technical issues reported in support incidents and CR tickets.",
@@ -151,6 +156,7 @@ export const experienceData: Job[] = [
     projects: [
       {
         name: "Plan to Stock, SPP Support",
+        leavingReason: "Internal reorganization shifted focus away from this initiative.",
         tags: ["APO", "CIF", "IDoc", "Legacy Integration"],
         responsibilities: [
           "Processed IDOCs and monitored interfaces to ensure integration between systems.",
@@ -172,6 +178,7 @@ export const experienceData: Job[] = [
       {
         name: "Pharma Company (Johnson and Johnson)",
         duration: "December 2014 – February 2016",
+        leavingReason: "Project scope re-evaluation led to team downsizing.",
         tags: ["Global Rollout", "FI Module", "Adobe Forms"],
         responsibilities: [
           "Contributed to end-to-end implementation and roll-out projects for MM, SD, and FI modules.",
@@ -184,6 +191,7 @@ export const experienceData: Job[] = [
       {
         name: "Pharma Company (Roche)",
         duration: "June 2013 – December 2014",
+        leavingReason: "Vendor consolidation process affected the current engagement.",
         tags: ["Smart Forms", "ALV", "QM/WM"],
         responsibilities: [
           "Participated in implementation and development of RICEF objects for MM, SD, QM and FI.",
@@ -203,6 +211,7 @@ export const experienceData: Job[] = [
       {
         name: "Consumer Goods Company (Sony)",
         duration: "June 2012 – June 2013",
+        leavingReason: "Transition of project ownership to internal stakeholders.",
         tags: ["QA", "Unicode Conversion", "Code Analysis"],
         responsibilities: [
           "Worked in ABAP QA Team analyzing code for issues and standards deviation.",
@@ -213,6 +222,7 @@ export const experienceData: Job[] = [
       {
         name: "FMCG Company (Nestle)",
         duration: "July 2010 – June 2012",
+        leavingReason: "Strategic realignment of IT resources.",
         tags: ["Support", "IDoc Monitoring"],
         responsibilities: [
           "Managed business-critical data failures for IDOC message types (ORDERS, DESADV, MATMAS, etc.).",

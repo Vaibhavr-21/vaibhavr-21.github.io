@@ -5,6 +5,7 @@ export interface Project {
   description?: string;
   responsibilities: string[];
   tags?: string[]; // Added tags for specific tech used
+  leavingReason?: string;
 }
 
 export interface Job {
