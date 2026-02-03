@@ -61,7 +61,7 @@ export const experienceData: Job[] = [
         name: "Solventum",
         role: "Lead Developer",
         duration: "February 2025 – May 2025",
-        leavingReason: "removed despite deserving the opportunity to become permanent",
+        leavingReason: "Promoting individuals based on personal loyalty or tenure rather than technical competence or leadership merit.",
         tags: ["SAP TM", "SAP QM", "EWM Integration", "BOPF"],
         responsibilities: [
           "Contributed to Solventum's IT transformation project as part of the ABAP implementation team for major wave releases.",
@@ -75,7 +75,7 @@ export const experienceData: Job[] = [
         name: "WBD",
         role: "Lead Developer",
         duration: "March 2024 – September 2024",
-        leavingReason: "trying to xplore the high tech features that could actually benifit the project by large",
+        leavingReason: "Forcing high-performers to fix legacy technical debt indefinitely while giving \"exciting\" new AI or Greenfield projects to favorites.",
         tags: ["Fiori", "UI5", "MDG", "Performance Tuning"],
         responsibilities: [
           "Led the enhancement of a custom analytical Fiori app by adding new fields to selection criteria and output list.",
