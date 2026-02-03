@@ -22,8 +22,8 @@ export const Experience: React.FC = () => {
     return gap * salary;
   };
 
-  // Calculate Cumulative Total Loss
-  const totalLoss = experienceData.reduce((total, job, index) => {
+  // Calculate computed total loss (based on user-provided salary inputs)
+  const computedLoss = experienceData.reduce((total, job, index) => {
       let gapMonths = 0;
       if (index > 0) {
           const nextJob = experienceData[index - 1];
@@ -36,7 +36,7 @@ export const Experience: React.FC = () => {
   }, 0);
 
   // Default to 30 Lakhs if no input provided yet
-  const displayLoss = (totalLoss === 0 && Object.keys(salaryInputs).length === 0) ? 3000000 : totalLoss;
+  const displayLoss = (totalLoss === 0 && Object.keys(salaryInputs).length === 0) ? 3500000 : totalLoss;
 
   return (
     <Section id="experience" title="Professional Experience">
@@ -85,7 +85,7 @@ export const Experience: React.FC = () => {
           <div key={job.id} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
             
             {/* Icon */}
-            <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-200 group-hover:bg-accent group-hover:text-white text-slate-500 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-colors">
+            <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-200 group-hover:bg-accent group-hover:text-white text-slate-500 shadow shrink-0 md:orde[...]
               <Briefcase size={18} />
             </div>
             
